@@ -12,6 +12,7 @@ import "./App.css";
 import BackendUrlInput from "./BackendUrlInput";
 import LoadingSpinner from "./LoadingSpinner";
 import NotificationCheckbox from './NotificationCheckbox';
+import { generateTimeString } from './utils';
 
 const useStyles = () => ({
     root: {
@@ -183,7 +184,7 @@ const App = ({ classes }) => {
                         </CardContent>
                     </Card>
                     {queryTime !== 0 && <Typography variant="body2" color="textSecondary">
-                        Generation execution time: {queryTime} sec
+                        Generation execution time: {generateTimeString(queryTime)}
                     </Typography>}
                 </div>
                 
