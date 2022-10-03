@@ -84,7 +84,16 @@ const App = ({ classes }) => {
         console.log('API call to DALL-E web service with the following prompt [' + promptText + ']');
         setApiError('')
         setIsFetchingImgs(true)
+
+        const timeCounter = setInterval(() => {
+          setQueryTime((prevTime) => {
+            document.title = "DALL-E | " + generateTimeString(prevTime + 1);
+            return prevTime + 1;
+          });
+        }, 1000)
+
         callDalleService(backendUrl, promptText, imagesPerQuery).then((response) => {
+            clearInterval(timeCounter)
             setQueryTime(response['executionTime'])
             setGeneratedImages(response['serverResponse']['generatedImgs'])
             setGeneratedImagesFormat(response['serverResponse']['generatedImgsFormat'])
