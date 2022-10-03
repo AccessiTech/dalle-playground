@@ -13,7 +13,7 @@ from consts import ModelSize
 
 app = Flask(__name__)
 CORS(app)
-print("--> Starting DALL-E Server. This might take up to two minutes.")
+print("--> Starting DALL-E Server. This might take up to ten minutes.")
 
 from dalle_model import DalleModel
 dalle_model = None
