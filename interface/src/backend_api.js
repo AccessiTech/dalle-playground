@@ -22,7 +22,14 @@ export async function callDalleService(backendUrl, text, numImages) {
             return response
         })).text(), new Promise((_, reject) => setTimeout(
             () => reject(new Error('Timeout')), REQUEST_TIMEOUT_SEC))
-    ]);
+    ]).catch((error) => {
+        console.log("Error querying DALL-E service.", error);
+        if (error.message === "Timeout") {
+            throw Error("Timeout")
+        } else {
+            throw Error("Error querying DALL-E service. Check your backend server logs.")
+        }
+    })
 
 
     return {
