@@ -100,6 +100,7 @@ const App = ({ classes }) => {
             setGeneratedImages(response['serverResponse']['generatedImgs'])
             setGeneratedImagesFormat(response['serverResponse']['generatedImgsFormat'])
             setIsFetchingImgs(false)
+            document.title = "DALL-E | Done!";
 
             if (notificationsOn) {
                 new Notification(
