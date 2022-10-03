@@ -74,7 +74,7 @@ const App = ({ classes }) => {
     const [generatedImagesFormat, setGeneratedImagesFormat] = useState('jpeg');
 
     const [apiError, setApiError] = useState('')
-    const [imagesPerQuery, setImagesPerQuery] = useState(2);
+    const [imagesPerQuery, setImagesPerQuery] = useState(1);
     const [queryTime, setQueryTime] = useState(0);
 
     const imagesPerQueryOptions = 10
