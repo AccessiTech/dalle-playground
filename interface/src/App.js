@@ -84,6 +84,7 @@ const App = ({ classes }) => {
         console.log('API call to DALL-E web service with the following prompt [' + promptText + ']');
         setApiError('')
         setIsFetchingImgs(true)
+        setQueryTime(0)
 
         const timeCounter = setInterval(() => {
           setQueryTime((prevTime) => {
