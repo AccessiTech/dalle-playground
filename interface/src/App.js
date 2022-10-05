@@ -72,7 +72,7 @@ const App = ({ classes }) => {
     const [notificationsOn, setNotificationsOn] = useState(false);
 
     const [generatedImages, setGeneratedImages] = useState([]);
-    const [generatedImagesFormat, setGeneratedImagesFormat] = useState('jpeg');
+    const [generatedImagesFormat, setGeneratedImagesFormat] = useState('png');
 
     const [apiError, setApiError] = useState('')
     const [imagesPerQuery, setImagesPerQuery] = useState(1);

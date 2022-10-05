@@ -22,7 +22,7 @@ parser = argparse.ArgumentParser(description = "A DALL-E app to turn your textua
 parser.add_argument("--port", type=int, default=8000, help = "backend port")
 parser.add_argument("--model_version", type = parse_arg_dalle_version, default = ModelSize.MINI, help = "Mini, Mega, or Mega_full")
 parser.add_argument("--save_to_disk", type = parse_arg_boolean, default = False, help = "Should save generated images to disk")
-parser.add_argument("--img_format", type = str.lower, default = "JPEG", help = "Generated images format", choices=['jpeg', 'png'])
+parser.add_argument("--img_format", type = str.lower, default = "PNG", help = "Generated images format", choices=['jpeg', 'png'])
 parser.add_argument("--output_dir", type = str, default = DEFAULT_IMG_OUTPUT_DIR, help = "Customer directory for generated images")
 args = parser.parse_args()
 
