@@ -70,6 +70,7 @@ const App = ({ classes }) => {
     const [isCheckingBackendEndpoint, setIsCheckingBackendEndpoint] = useState(false);
     const [isValidBackendEndpoint, setIsValidBackendEndpoint] = useState(true);
     const [notificationsOn, setNotificationsOn] = useState(false);
+    const [model, setModel] = useState('mini');
 
     const [generatedImages, setGeneratedImages] = useState([]);
     const [generatedImagesFormat, setGeneratedImagesFormat] = useState('png');
@@ -78,7 +79,7 @@ const App = ({ classes }) => {
     const [imagesPerQuery, setImagesPerQuery] = useState(1);
     const [queryTime, setQueryTime] = useState(0);
 
-    const imagesPerQueryOptions = 10
+    const imagesPerQueryOptions = 30
     const validBackendUrl = isValidBackendEndpoint && backendUrl
 
     function enterPressedCallback(promptText) {
@@ -134,6 +135,16 @@ const App = ({ classes }) => {
         return <GeneratedImageList generatedImages={generatedImages} generatedImagesFormat={generatedImagesFormat} promptText={promptText} />
     }
 
+    function getEstimatedQueryTime() {
+        if (model === 'mini') {
+            return 8.5 * 60 * imagesPerQuery;
+        } else if (model === 'mega') {
+            return 0.75 * 60 * 60 * imagesPerQuery;
+        } else if (model === 'mega_full') {
+            return 2 * 60 * 60 * imagesPerQuery
+        }
+    }
+
 
     return (
         <div className={classes.root}>
@@ -164,7 +175,20 @@ const App = ({ classes }) => {
                                 disabled={isFetchingImgs || !validBackendUrl} />
 
                             <NotificationCheckbox isNotificationOn={notificationsOn} setNotifications={setNotificationsOn}/>
-
+                            <FormControl className={classes.imagesPerQueryControl}>
+                                <InputLabel id="model-select-label">Model</InputLabel>
+                                <Select
+                                    labelId="model-select-label"
+                                    id="model-select"
+                                    value={model}
+                                    onChange={(event) => setModel(event.target.value)}
+                                    disabled={isFetchingImgs || !validBackendUrl}
+                                >
+                                    <MenuItem value={'mini'}>Mini</MenuItem>
+                                    <MenuItem value={'mega'}>Mega</MenuItem>
+                                    <MenuItem value={'mega_full'}>Mega Full</MenuItem>
+                                </Select>
+                            </FormControl>
                             <FormControl className={classes.imagesPerQueryControl}
                                 variant="outlined">
                                 <InputLabel id="images-per-query-label">
@@ -184,6 +208,10 @@ const App = ({ classes }) => {
                             </FormControl>
                         </CardContent>
                     </Card>
+                    {!isFetchingImgs && <Typography variant="body2" color="textSecondary">
+                        Estimated query time: {generateTimeString(getEstimatedQueryTime())}
+                    </Typography>}
+                                    
                     {queryTime !== 0 && <Typography variant="body2" color="textSecondary">
                         Generation execution time: {generateTimeString(queryTime)}
                     </Typography>}
